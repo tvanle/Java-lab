@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    
+    <display-name>Bookstore Online</display-name>
+    
+    <!-- Welcome Files -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
+    <!-- Session Configuration -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>false</secure>
+        </cookie-config>
+    </session-config>
+    
+    <!-- Error Pages -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/error/404.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <error-code>500</error-code>
+        <location>/jsp/error/500.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/jsp/error/error.jsp</location>
+    </error-page>
+    
+    <!-- Context Parameters -->
+    <context-param>
+        <param-name>dbUrl</param-name>
+        <param-value>jdbc:mysql://localhost:3306/bookstore?useSSL=false&amp;serverTimezone=UTC</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>dbUsername</param-name>
+        <param-value>root</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>dbPassword</param-name>
+        <param-value>password</param-value>
+    </context-param>
+    
+    <!-- Security Constraints for Admin Pages -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin Pages</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <!-- Security Constraints for User Pages -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>User Pages</web-resource-name>
+            <url-pattern>/orders/*</url-pattern>
+            <url-pattern>/cart/*</url-pattern>
+            <url-pattern>/checkout/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>CUSTOMER</role-name>
+            <role-name>ADMIN</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <!-- Login Configuration -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login</form-login-page>
+            <form-error-page>/login?error=true</form-error-page>
+        </form-login-config>
+    </login-config>
+    
+    <!-- Security Roles -->
+    <security-role>
+        <role-name>ADMIN</role-name>
+    </security-role>
+    
+    <security-role>
+        <role-name>CUSTOMER</role-name>
+    </security-role>
+    
+    <!-- MIME Mappings -->
+    <mime-mapping>
+        <extension>css</extension>
+        <mime-type>text/css</mime-type>
+    </mime-mapping>
+    
+    <mime-mapping>
+        <extension>js</extension>
+        <mime-type>application/javascript</mime-type>
+    </mime-mapping>
+    
+    <mime-mapping>
+        <extension>jpg</extension>
+        <mime-type>image/jpeg</mime-type>
+    </mime-mapping>
+    
+    <mime-mapping>
+        <extension>png</extension>
+        <mime-type>image/png</mime-type>
+    </mime-mapping>
+</web-app>
