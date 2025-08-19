@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/bookstore?useSSL=false&serverTimezone=UTC";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "password";
+    private static final String USERNAME = "bookstore_user";
+    private static final String PASSWORD = "bookstore_pass";
     private static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
     
     private static DBConnection instance;
